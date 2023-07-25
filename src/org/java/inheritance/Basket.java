@@ -15,9 +15,13 @@ public class Basket {
     Scanner sc = new Scanner(System.in);
 
 
+
+
         boolean exit = false;
 
         while (!exit){
+
+
 
             System.out.print("Insert name: ");
             String nameInput = sc.nextLine();
@@ -29,18 +33,22 @@ public class Basket {
             System.out.print("Insert VAT: ");
             String vatStringInput = sc.nextLine();
             BigDecimal vatInput = new BigDecimal(vatStringInput);
+            Product product = new Product(nameInput,brandInput,priceInput,vatInput);
 
-            System.out.println("Insert type of product: 1.Smartphones, 2.Headphones, 3.TV. Otherwise digit '4' to exit.");
-            String userChoice = sc.nextLine();
+            System.out.println("Insert type of product: 1.Smartphones, 2.Headphones, 3.TV.");
+            String userProductChoice = sc.nextLine();
 
-            switch (userChoice)
+
+            switch (userProductChoice)
             {
                 case "1":
                     System.out.println("Insert IMEI Code: ");
                     long imeiInput = Long.parseLong(sc.nextLine());
-                    System.out.println("Insert Memory: ");
-                    int memoryInput = Integer.parseInt(sc.nextLine());
+                    System.out.println("Insert Memory in GB: ");
+                    String memoryInput = sc.nextLine();
                     Smartphones smartphone = new Smartphones(nameInput,brandInput,priceInput,vatInput,imeiInput,memoryInput);
+                    System.out.println(smartphone);
+                    System.out.println("Price with VAT: "+smartphone.getFullPrice());
                     break;
                 case "2":
                     System.out.println("Insert color: ");
@@ -48,6 +56,8 @@ public class Basket {
                     System.out.println("Insert type (wireless or cablate ): ");
                     String headphonesTypeInput = sc.nextLine();
                     Headphones headphone = new Headphones(nameInput,brandInput,priceInput,vatInput,colorInput,headphonesTypeInput);
+                    System.out.println(headphone);
+                    System.out.println("Price with VAT: "+headphone.getFullPrice());
                     break;
                 case "3":
                     System.out.println("Insert dimension: ");
@@ -55,16 +65,22 @@ public class Basket {
                     System.out.println("Insert type (smart or not smart): ");
                     String tvTypeInput = sc.nextLine();
                     Tv tv = new Tv(nameInput,brandInput,priceInput,vatInput,dimensionInput,tvTypeInput);
-                    break;
-                case "4":
-                    exit = true;
+                    System.out.println(tv);
+                    System.out.println("Price with VAT: "+tv.getFullPrice());
                     break;
                 default:
                     System.out.println("Invalid Choice");
                     break;
             }
 
+            System.out.println("Do you want to continue? Digit 'NO' to exit.");
+            String userChoice = sc.nextLine();
 
+            if(userChoice.equalsIgnoreCase("NO"))
+            {
+                exit = true;
+                break;
+            }
 
 
 

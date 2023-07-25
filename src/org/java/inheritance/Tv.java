@@ -13,4 +13,17 @@ public class Tv extends Product{
         this.dimension = dimension;
         this.type = type;
     }
+
+
+    @Override
+    public String toString() {
+        return "Tv{" +
+                "name=" + getName() +
+                ",brand=" + getBrand() +
+                ",price=" + getPrice() +
+                ",vat=" + getVat() +
+                ",dimension=" + dimension +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }

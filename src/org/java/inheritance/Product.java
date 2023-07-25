@@ -90,4 +90,14 @@ public class Product {
     }
 
 
+    @Override
+    public String toString() {
+        return "Product{" +
+                "code=" + code +
+                ", name='" + name + '\'' +
+                ", brand='" + brand + '\'' +
+                ", price=" + price +
+                ", vat=" + vat +
+                '}';
+    }
 }

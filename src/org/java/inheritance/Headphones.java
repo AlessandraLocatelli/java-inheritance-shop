@@ -14,4 +14,16 @@ public class Headphones extends Product {
         this.type = type;
     }
 
+
+    @Override
+    public String toString() {
+        return "Headphones{" +
+                "name=" + getName() +
+                ",brand=" + getBrand() +
+                ",price=" + getPrice() +
+                ",vat=" + getVat() +
+                ",color='" + color + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }
