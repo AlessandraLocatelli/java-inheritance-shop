@@ -14,7 +14,7 @@ public class Basket {
 
     public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
-
+    ArrayList<Product> myShoppingList = new ArrayList<>();
 
 
 
@@ -50,6 +50,7 @@ public class Basket {
                     Smartphones smartphone = new Smartphones(nameInput,brandInput,priceInput,vatInput,imeiInput,memoryInput);
                     System.out.println(smartphone);
                     System.out.println("Price with VAT: "+smartphone.getFullPrice());
+                    myShoppingList.add(smartphone);
                     break;
                 case "2":
                     System.out.println("Insert color: ");
@@ -59,6 +60,7 @@ public class Basket {
                     Headphones headphone = new Headphones(nameInput,brandInput,priceInput,vatInput,colorInput,headphonesTypeInput);
                     System.out.println(headphone);
                     System.out.println("Price with VAT: "+headphone.getFullPrice());
+                    myShoppingList.add(headphone);
                     break;
                 case "3":
                     System.out.println("Insert dimension: ");
@@ -68,13 +70,14 @@ public class Basket {
                     Tv tv = new Tv(nameInput,brandInput,priceInput,vatInput,dimensionInput,tvTypeInput);
                     System.out.println(tv);
                     System.out.println("Price with VAT: "+tv.getFullPrice());
+                    myShoppingList.add(tv);
                     break;
                 default:
                     System.out.println("Invalid Choice");
                     break;
             }
 
-            System.out.println("Do you want to add more products to the basket? (YES/NO)");
+            System.out.println("Do you want to add more products to your basket? (YES/NO)");
             String userChoice = sc.nextLine();
 
             if(userChoice.equalsIgnoreCase("NO"))
@@ -89,6 +92,11 @@ public class Basket {
         }
 
 
+        System.out.println("Your shopping list is: ");
+        for (Product currentProduct : myShoppingList)
+        {
+            System.out.println(currentProduct);
+        }
         System.out.println("THANKS FOR SHOPPING WITH US!");
 
 
