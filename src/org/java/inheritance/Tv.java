@@ -18,12 +18,13 @@ public class Tv extends Product{
     @Override
     public String toString() {
         return "Tv{" +
-                "name=" + getName() +
+                "code=" +getCode() +
+                ",name=" + getName() +
                 ",brand=" + getBrand() +
                 ",price=" + getPrice() +
                 ",vat=" + getVat() +
                 ",dimension=" + dimension +
-                ", type='" + type + '\'' +
+                ",type='" + type + '\'' +
                 '}';
     }
 }

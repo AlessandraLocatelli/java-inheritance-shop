@@ -23,12 +23,13 @@ public class Smartphones extends Product {
 
 
         return "Smartphones{" +
-                "name=" + getName() +
+                "code=" +getCode() +
+                ",name=" + getName() +
                 ",brand=" + getBrand() +
                 ",price=" + getPrice() +
                 ",vat=" + getVat() +
                 ",imeiCode=" + imeiCode +
-                ", memory=" + memory +
+                ",memory=" + memory +
                 '}';
     }
 }

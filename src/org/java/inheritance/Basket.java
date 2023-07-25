@@ -1,5 +1,6 @@
 package org.java.inheritance;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 //chiedere all'utente di inserire dati tramite scanner e chiedere se vuole
@@ -22,7 +23,6 @@ public class Basket {
         while (!exit){
 
 
-
             System.out.print("Insert name: ");
             String nameInput = sc.nextLine();
             System.out.print("Insert brand: ");
@@ -34,6 +34,7 @@ public class Basket {
             String vatStringInput = sc.nextLine();
             BigDecimal vatInput = new BigDecimal(vatStringInput);
             Product product = new Product(nameInput,brandInput,priceInput,vatInput);
+
 
             System.out.println("Insert type of product: 1.Smartphones, 2.Headphones, 3.TV.");
             String userProductChoice = sc.nextLine();
@@ -73,7 +74,7 @@ public class Basket {
                     break;
             }
 
-            System.out.println("Do you want to continue? Digit 'NO' to exit.");
+            System.out.println("Do you want to add more products to the basket? (YES/NO)");
             String userChoice = sc.nextLine();
 
             if(userChoice.equalsIgnoreCase("NO"))
@@ -89,6 +90,9 @@ public class Basket {
 
 
         System.out.println("THANKS FOR SHOPPING WITH US!");
+
+
+
 
 
     sc.close();
