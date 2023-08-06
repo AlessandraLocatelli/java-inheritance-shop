@@ -1,6 +1,9 @@
 package org.java.inheritance;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 //chiedere all'utente di inserire dati tramite scanner e chiedere se vuole
@@ -16,91 +19,161 @@ public class Basket {
     Scanner sc = new Scanner(System.in);
     ArrayList<Product> myShoppingList = new ArrayList<>();
 
+    boolean isRunning = true;
 
 
-        boolean exit = false;
+    while(isRunning)
+    {
 
-        while (!exit){
+        System.out.println("Do you want to add a product to your basket (y/n)?");
+        String userChoice = sc.nextLine();
+
+        if (userChoice.equalsIgnoreCase("y"))
+        {
+
+            System.out.println("Which product? Insert 1 for smartphones, 2 for TV, 3 for headphones.");
+            String productChoice = sc.nextLine();
+
+                System.out.println("Name: ");
+                String nameInput = sc.nextLine();
+                System.out.println("Brand: ");
+                String brandInput = sc.nextLine();
+
+                BigDecimal priceInput = BigDecimal.ZERO;
+                BigDecimal vatInput = BigDecimal.ZERO;
+
+                try{
+                System.out.println("Price: ");
+                priceInput = new BigDecimal(sc.nextLine());
+                System.out.println("VAT: ");
+                vatInput = new BigDecimal(sc.nextLine());
+                }
+                catch (NumberFormatException e)
+                {
+                    System.out.println("Invalid format for price and/or vat.");
+                }
 
 
-            System.out.print("Insert name: ");
-            String nameInput = sc.nextLine();
-            System.out.print("Insert brand: ");
-            String brandInput = sc.nextLine();
-            System.out.print("Insert price: ");
-            String priceStringInput = sc.nextLine();
-            BigDecimal priceInput = new BigDecimal(priceStringInput);
-            System.out.print("Insert VAT: ");
-            String vatStringInput = sc.nextLine();
-            BigDecimal vatInput = new BigDecimal(vatStringInput);
-            Product product = new Product(nameInput,brandInput,priceInput,vatInput);
-
-
-            System.out.println("Insert type of product: 1.Smartphones, 2.Headphones, 3.TV.");
-            String userProductChoice = sc.nextLine();
-
-
-            switch (userProductChoice)
-            {
+            switch (productChoice) {
                 case "1":
-                    System.out.println("Insert IMEI Code: ");
-                    long imeiInput = Long.parseLong(sc.nextLine());
-                    System.out.println("Insert Memory in GB: ");
-                    String memoryInput = sc.nextLine();
-                    Smartphones smartphone = new Smartphones(nameInput,brandInput,priceInput,vatInput,imeiInput,memoryInput);
-                    System.out.println(smartphone);
-                    System.out.println("Price with VAT: "+smartphone.getFullPrice());
-                    myShoppingList.add(smartphone);
+
+                    String imeiCodeInput = null;
+                    int memoryInput = 0;
+                    Smartphones smartphones = null;
+
+                    try {
+                        System.out.println("IMEI CODE: ");
+                        imeiCodeInput = sc.nextLine();
+                        System.out.println("Memory in GB: ");
+                        memoryInput = Integer.parseInt(sc.nextLine());
+                        smartphones = new Smartphones(nameInput, brandInput, priceInput, vatInput, imeiCodeInput, memoryInput);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid format for imei code and/or memory.");
+                    } catch (RuntimeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    myShoppingList.add(smartphones);
                     break;
-                case "2":
-                    System.out.println("Insert color: ");
-                    String colorInput = sc.nextLine();
-                    System.out.println("Insert type (wireless or cablate ): ");
-                    String headphonesTypeInput = sc.nextLine();
-                    Headphones headphone = new Headphones(nameInput,brandInput,priceInput,vatInput,colorInput,headphonesTypeInput);
-                    System.out.println(headphone);
-                    System.out.println("Price with VAT: "+headphone.getFullPrice());
-                    myShoppingList.add(headphone);
-                    break;
-                case "3":
-                    System.out.println("Insert dimension: ");
-                    int dimensionInput = Integer.parseInt(sc.nextLine());
-                    System.out.println("Insert type (smart or not smart): ");
-                    String tvTypeInput = sc.nextLine();
-                    Tv tv = new Tv(nameInput,brandInput,priceInput,vatInput,dimensionInput,tvTypeInput);
-                    System.out.println(tv);
-                    System.out.println("Price with VAT: "+tv.getFullPrice());
+
+                    case "2":
+
+                    int dimensionInput = 0;
+                    Tv tv = null;
+
+                    System.out.println("smart: (y/n)");
+                    String isSmartString = sc.nextLine();
+                    boolean isSmart = isSmartString.equalsIgnoreCase("y");
+
+                    try{
+                    System.out.println("dimension: ");
+                    dimensionInput = Integer.parseInt(sc.nextLine());
+                    tv = new Tv(nameInput,brandInput,priceInput,vatInput,dimensionInput,isSmart);
+                    }
+                    catch (NumberFormatException e) {
+                    System.out.println("Invalid format for dimension.");
+                    } catch (RuntimeException e) {
+                    System.out.println(e.getMessage());
+                     }
+
                     myShoppingList.add(tv);
                     break;
-                default:
-                    System.out.println("Invalid Choice");
+
+                case "3":
+
+                    Headphones headphones = null;
+
+                    System.out.println("Color: ");
+                    String colorInput = sc.nextLine();
+
+                    System.out.println("Wireless: (y/n)");
+                    String isWirelessString = sc.nextLine();
+                    boolean isWireless = isWirelessString.equalsIgnoreCase("y");
+
+                    try{
+
+                        headphones = new Headphones(nameInput,brandInput,priceInput,vatInput,colorInput,isWireless);
+                    }
+                    catch (RuntimeException e)
+                    {
+                        System.out.println(e.getMessage());
+                    }
+                    myShoppingList.add(headphones);
                     break;
+
+
+                default:
+                    System.out.println("Invalid choice. Choose between 1-3.");
+                    break;
+
             }
-
-            System.out.println("Do you want to add more products to your basket? (YES/NO)");
-            String userChoice = sc.nextLine();
-
-            if(userChoice.equalsIgnoreCase("NO"))
-            {
-                exit = true;
-                break;
-            }
-
-
-
 
         }
-
-
-        System.out.println("Your shopping list is: ");
-        for (Product currentProduct : myShoppingList)
+        else if(userChoice.equalsIgnoreCase("n"))
         {
-            System.out.println(currentProduct);
+
+            break;
+
         }
+        else
+        {
+            System.out.println("Insert 'y' or 'n'");
+
+
+        }
+
+    }
+
+       if(!myShoppingList.isEmpty()){
+        System.out.println("Do you have our fidelity card? (y/n)");
+        String userInput = sc.nextLine();
+        boolean ownsAFidelityCard = userInput.equalsIgnoreCase("y");
+
+        BigDecimal total = BigDecimal.ZERO;
+
+        System.out.println("Your shopping list: ");
+
+        for(Product p : myShoppingList)
+        {
+            System.out.println(p);
+
+            if(ownsAFidelityCard)
+            {
+                total = total.add(p.getDiscountPrice(ownsAFidelityCard));
+                System.out.println(p.getName()+" Price with discount: "+p.getDiscountPrice(ownsAFidelityCard));
+            }
+            else{
+            total = total.add(p.getFullPrice());
+            System.out.println(p.getName()+" Price: "+p.getFullPrice());
+            }
+        }
+
+        System.out.println("TOTAL "+total);
         System.out.println("THANKS FOR SHOPPING WITH US!");
-
-
-
+       }
+       else
+       {
+           System.out.println("WE HOPE TO SEE YOU AGAIN!");
+       }
 
 
     sc.close();
